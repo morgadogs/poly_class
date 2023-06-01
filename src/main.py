@@ -8,4 +8,4 @@ p = Polynomial({
 
 print(p.eval(0))
 
-p.save_as_json()
+p.save_as_json("poly.json")
