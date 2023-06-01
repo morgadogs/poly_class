@@ -7,3 +7,5 @@ p = Polynomial({
     )
 
 print(p.eval(0))
+
+p.save_as_json()
