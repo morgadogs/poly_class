@@ -80,7 +80,7 @@ class Polynomial:
     Uses the bisection method to find a root given an interval.
     Receives an interval [a,b] as a tuple or list of two numbers (int or float) and
     optional parameters to set a maximum of iterations and the tolerance of error for the
-    root.
+    root. Default max_iterations and epsilon set as 1e4, 1e-3, respectively.
     Checks if self.eval(a) and self.eval(b) have opposite signs.
     """
     def bisection_method (self, interval, max_iterations = 1e4, epsilon = 1e-3):
