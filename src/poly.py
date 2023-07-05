@@ -26,13 +26,24 @@ class Polynomial:
             int_coef_at_degree[degree + 1] = self.coef_at_degree[degree] / (degree + 1)
         return Polynomial(int_coef_at_degree)
     
+    """
+    Returns the value corresponding to the definite integral in an interval.
+    Receives an interval as a tuple or a list of 2 numbers (int or float).
+    """
     def interval_integrate(self, interval):
         integral = self.symbolic_integrate()
         a, b = interval
         return integral.eval(b) - integral.eval(a)
-    
+
+    """
+    Returns the polynomial corresponding to the symbolic derivative of self.
+    """
     def symbolic_derivative (self):
-        pass
+        deriv_coef_at_degree = {}
+        for degree in self.coef_at_degree:
+            if degree > 0:
+                deriv_coef_at_degree[degree - 1] = degree * self.coef_at_degree[degree]
+        return Polynomial(deriv_coef_at_degree)
     
     """
     Save polynomial as json file.
