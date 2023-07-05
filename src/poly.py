@@ -2,7 +2,8 @@ import json
 
 class Polynomial:
     """
-    The initialization receives a dict where the keys are non negative degrees and the values are the coefficients.
+    The initialization receives a dict where the keys are non negative degrees and the
+    values are the coefficients.
     """
     def __init__ (self, coef_at_degree):
         self.coef_at_degree = coef_at_degree
@@ -50,3 +51,52 @@ class Polynomial:
     """
     def save_as_json (self, filename):
         json.dump(self.coef_at_degree, open(f"data/{filename}", "w"))
+    
+    """
+    Uses the Newton method to find a root given an initial value.
+    Receives an initial value and optional parameters to set a maximum of
+    iterations and the tolerance of error for the root.
+    Default number of maximum iterations at 100 and error at 1e-6.
+    Returns the root if it was found and None otherwise, printing "No root found".
+    If there was a stationary point, prints in which value it occurred.
+    """
+    def newton_method (self, value, max_iterations = 100, epsilon = 1e-6):
+        derivative_poly = self.symbolic_derivative()
+        current = value
+        next = current + 10*epsilon
+        count = 0
+        while count < max_iterations and abs(current-next) >= epsilon:
+            deriv_at_current = derivative_poly.eval(current)
+            if deriv_at_current < epsilon:
+                print(f"Stationary point at {current}.")
+                break
+            current, next = next, current - self.eval(current)/deriv_at_current
+            if self.eval(next) < epsilon:
+                return next
+            count += 1
+        print("No root found.")
+    
+    """
+    Uses the bisection method to find a root given an interval.
+    Receives an interval [a,b] as a tuple or list of two numbers (int or float) and
+    optional parameters to set a maximum of iterations and the tolerance of error for the
+    root.
+    Checks if self.eval(a) and self.eval(b) have opposite signs.
+    """
+    def bisection_method (self, interval, max_iterations = 1e4, epsilon = 1e-3):
+        if self.eval(a)*self.eval(b) > 0:
+            print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints.")
+            return None
+        else:
+            a, b = interval
+            count = 0
+            while count < max_iterations:
+                mid = (a + b)/2
+                if self.eval(mid) < epsilon:
+                    return mid
+                elif self.eval(a)*self.eval(mid) < 0:
+                    b = mid
+                else:
+                    a = mid
+                count += 1
+        print(f"No root found for the maximum of iterations {max_iterations} and tolerance {epsilon}.")
