@@ -68,7 +68,7 @@ class Polynomial:
     Returns the root if it was found and None otherwise, printing "No root found".
     If there was a stationary point, prints in which value it occurred.
     """
-    def newton_method(self, value, max_iterations=100, epsilon=1e-6):
+    def newton_method(self, value, max_iterations=100, epsilon=1e-3):
         derivative_poly = self.symbolic_derivative()
         current = value
         next = current + 1
@@ -91,7 +91,7 @@ class Polynomial:
     the root. Default max_iterations and epsilon are set as 1e4 and 1e-3, respectively.
     Checks if self.eval(a) and self.eval(b) have opposite signs.
     """
-    def bisection_method(self, interval, max_iterations=1e4, epsilon=1e-3):
+    def bisection_method(self, interval, max_iterations=100, epsilon=1e-3):
         a, b = interval
         if self.eval(a) * self.eval(b) > 0:
             print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints.")
