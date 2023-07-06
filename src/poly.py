@@ -48,25 +48,28 @@ class Polynomial:
         return Polynomial(deriv_coef_at_degree)
     
     """
-    Save polynomial as a JSON file.
+    Save polynomial as a JSON file in the data folder.
+    Receives a string as the name of the file.
     """
     def save_as_json(self, filename):
-    	pathlib.Path('/data').mkdir(parents=True, exist_ok=True)
-        json.dump(self.coef_at_degree, open(f"poly_class/data/{filename}", "w"))
+        # Create the data folder if it doesn't already exist.
+        pathlib.Path('/data').mkdir(parents=True, exist_ok=True)
+        json.dump(self.coef_at_degree, open(f"/data/{filename}", "w"))
     
     """
-    Read a JSON file and receive its dictionary to create a Polynomial instance.
+    Read a JSON file and use its corresponding dictionary to create a Polynomial instance.
+    Receives a string as the name of the file in the data folder.
     """
     @classmethod
     def from_json(cls, filename):
-    	coef_at_degree = json.load(open(f"poly_class/data/{filename}", "r"))
+    	coef_at_degree = json.load(open(f"/data/{filename}", "r"))
     	return cls(coef_at_degree)
     
     """
     Uses the Newton method to find a root given an initial value.
     Receives an initial value and optional parameters to set a maximum of
     iterations and the tolerance of error for the root.
-    Default number of maximum iterations is 100, and error is 1e-6.
+    Default number of maximum iterations is 100 and default error is 1e-3.
     Returns the root if it was found and None otherwise, printing "No root found".
     If there was a stationary point, prints in which value it occurred.
     """
@@ -90,8 +93,9 @@ class Polynomial:
     Uses the bisection method to find a root given an interval.
     Receives an interval [a, b] as a tuple or list of two numbers (int or float) and
     optional parameters to set a maximum number of iterations and the tolerance of error for
-    the root. Default max_iterations and epsilon are set as 1e4 and 1e-3, respectively.
-    Checks if self.eval(a) and self.eval(b) have opposite signs.
+    the root. Default max_iterations and epsilon are set as 100 and 1e-3, respectively.
+    Checks if self.eval(a) and self.eval(b) have opposite signs, as it is necessary for the method.
+    Returns a root if successful and None otherwise.
     """
     def bisection_method(self, interval, max_iterations=100, epsilon=1e-3):
         a, b = interval

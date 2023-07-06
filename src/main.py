@@ -54,4 +54,6 @@ print(poly2.newton_method(-2), poly2.newton_method(-2.5), poly2.newton_method(-2
 
 print(poly2.bisection_method([-2,-3]), poly2.bisection_method([2.8,3]), poly2.bisection_method([-1.1,-0.9], max_iterations=1e6, epsilon=1e-6), poly2.bisection_method([3,4]))
 
+# Test if the save_as_json and from_json methods work correctly.
 
+print((Polynomial.from_json("poly1.json")).coef_at_degree, (Polynomial.from_json("poly2.json")).coef_at_degree)
