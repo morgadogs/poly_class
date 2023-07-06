@@ -1,4 +1,5 @@
 import json
+import pathlib
 
 class Polynomial:
     """
@@ -50,6 +51,7 @@ class Polynomial:
     Save polynomial as a JSON file.
     """
     def save_as_json(self, filename):
+    	pathlib.Path('/data').mkdir(parents=True, exist_ok=True)
         json.dump(self.coef_at_degree, open(f"poly_class/data/{filename}", "w"))
     
     """
@@ -82,7 +84,7 @@ class Polynomial:
             if abs(self.eval(next)) < epsilon:
                 return next
             count += 1
-        print("No root found.")
+        print(f"No root found. Initial value: {value}.")
     
     """
     Uses the bisection method to find a root given an interval.
@@ -94,7 +96,7 @@ class Polynomial:
     def bisection_method(self, interval, max_iterations=100, epsilon=1e-3):
         a, b = interval
         if self.eval(a) * self.eval(b) > 0:
-            print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints.")
+            print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints. Interval provided: {interval}.")
             return None
         else:
             count = 0
