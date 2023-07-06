@@ -5,7 +5,7 @@ class Polynomial:
     The initialization receives a dict where the keys are non-negative degrees and the
     values are the coefficients.
     """
-    def __init__(self, coef_at_degree):
+    def __init__(self, coef_at_degree={}):
         self.coef_at_degree = coef_at_degree
 
     """
