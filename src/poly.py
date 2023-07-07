@@ -62,7 +62,7 @@ class Polynomial:
     """
     @classmethod
     def from_json(cls, filename):
-        # json module converts the keys to str, so we convert them back to int.
+        # json module converts the keys of the dict to str, so convert them back to int.
         str_coef_at_degree = json.load(open(f"/data/{filename}", "r"))
         coef_at_degree = {}
         for str_degree in str_coef_at_degree:
