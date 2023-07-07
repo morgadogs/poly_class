@@ -56,4 +56,8 @@ my_poly = Polynomial({
     )
 
 print(my_poly.eval(1)) # output 2
+
+print(my_poly.symbolic_integrate().coef_at_degree) # output {0: 0, 1: 3.0, 2: -0.5}
+
+print(my_poly.symbolic_derivative().coef_at_degree) # output {0: -1}
 ```
