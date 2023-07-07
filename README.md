@@ -1,6 +1,6 @@
-# poly_class: manipulação de polinômios
+o # poly_class: manipulação de polinômios
 
-Um script em Python, com o uso das bibliotecas padrão json e pathlib, para manipulação de polinômios de qualquer grau com a criação de uma classe, permitindo avaliar o valor num ponto específico, realizar integração e derivação simbólicas, calcular a integral definida em um intervalo, obter raízes utilizando os métodos de Newton e da bisseção e ler e salvar dicionários em arquivos json para representação dos polinômios.
+Um script em Python, com o uso das bibliotecas padrão json e pathlib, para manipulação de polinômios de qualquer grau por meio da criação de uma classe. Permite avaliar o valor num ponto específico, realizar integração e derivação simbólicas, calcular a integral definida em um intervalo, obter raízes utilizando os métodos de Newton e da bisseção e ler e salvar dicionários em arquivos json para representação dos polinômios.
 
 # Como importar a classe
 
@@ -16,7 +16,7 @@ A pasta poly_class consiste em, além do gitignore e do readme, duas pastas: src
 
 ## src
 
-Nela, estão os scripts poly.py e main.py.
+Nela, encontram-se os scripts poly.py e main.py.
 
 ### poly.py
 
@@ -33,4 +33,7 @@ Nela, são armazenados os arquivos json para ler e salvar na manipulação de po
 
 ## Como utilizar os métodos
 
-* __init__: 
+* `__init__ (self, coef_at_degree={}) `: cria uma instância da classe Polynomial tomando por parâmetro coef_at_degree, dicionário cujas chaves são inteiros não negativos representando os graus e cujos valores são números (int ou float) representando os coeficientes correspondentes a esses graus. O padrão para o dicionário é um dicionário vazio, criando um polinômio nulo.
+* `eval (self, x)`: toma por parâmetro um número (int ou float) x e avalia o polinômio nesse ponto x, retornando o valor obtido.
+* `symbolic_integrate (self, constant=0)`: retorna a integral simbólica do polinômio. O parâmetro opcional constant recebe um número (int ou float) que define o valor do coeficiente no grau 0, sendo 0 o valor padrão.
+* `interval_integrate (self, interval)`:
