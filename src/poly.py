@@ -30,7 +30,7 @@ class Polynomial:
     
     """
     Returns the value corresponding to the definite integral in an interval.
-    Receives an interval as a tuple or a list of 2 numbers (int or float).
+    The interval parameter is specified as a tuple or a list of two numbers (int or float).
     """
     def interval_integrate(self, interval):
         integral = self.symbolic_integrate()
@@ -49,7 +49,7 @@ class Polynomial:
     
     """
     Save polynomial as a JSON file in the data folder.
-    Receives a string as the name of the file.
+    The filename parameter specifies the name of the file.
     """
     def save_as_json(self, filename):
         # Create the data folder if it doesn't already exist.
@@ -58,7 +58,7 @@ class Polynomial:
     
     """
     Read a JSON file and use its corresponding dictionary to create a Polynomial instance.
-    Receives a string as the name of the file in the data folder.
+    The filename parameter specifies the name of the file in the data folder.
     """
     @classmethod
     def from_json(cls, filename):
@@ -67,44 +67,48 @@ class Polynomial:
     
     """
     Uses the Newton method to find a root given an initial value.
-    Receives an initial value and optional parameters to set a maximum of
-    iterations and the tolerance of error for the root.
-    Default number of maximum iterations is 100 and default error is 1e-3.
-    Returns the root if it was found and None otherwise, printing "No root found".
-    If there was a stationary point, prints in which value it occurred.
+    The value parameter specifies the initial value.
+    The optional parameters max_iterations and epsilon are used to set a maximum of
+    iterations and the tolerance of error for the root, respectively.
+    Returns a root if it was found and None otherwise.
+    Prints information if a stationary point was encountered or no root was found.
     """
     def newton_method(self, value, max_iterations=100, epsilon=1e-3):
         derivative_poly = self.symbolic_derivative()
+        previous = value - 1
         current = value
-        next = current + 1
         count = 0
-        while count < max_iterations and abs(current - next) >= epsilon:
+        while count < max_iterations and abs(previous - current) >= epsilon:
+            if abs(self.eval(current)) < epsilon:
+                return current
             deriv_at_current = derivative_poly.eval(current)
             if abs(deriv_at_current) < epsilon:
                 print(f"Stationary point at {current}.")
                 break
-            current, next = next, current - self.eval(current) / deriv_at_current
-            if abs(self.eval(next)) < epsilon:
-                return next
+            previous, current = current, current - self.eval(current) / deriv_at_current
             count += 1
-        print(f"No root found. Initial value: {value}.")
+        if abs(self.eval(current)) < epsilon: # Check if the last computed number is a root.
+            return current
+        print(f"No root found. Initial value: {value}. Iterations: {count}. Tolerance: {epsilon}.")
     
     """
-    Uses the bisection method to find a root given an interval.
-    Receives an interval [a, b] as a tuple or list of two numbers (int or float) and
-    optional parameters to set a maximum number of iterations and the tolerance of error for
-    the root. Default max_iterations and epsilon are set as 100 and 1e-3, respectively.
-    Checks if self.eval(a) and self.eval(b) have opposite signs, as it is necessary for the method.
-    Returns a root if successful and None otherwise.
+    Uses the bisection method to find a root given an interval [a, b] in which
+    self.eval(a) and self.eval(b) have opposite signs.
+    The parameter interval [a, b] is specified as a tuple or list of two numbers
+    (int or float).
+    The optional parameters iterations and epsilon are used to set the number of
+    iterations and the tolerance of error for the root, respectively.
+    Returns a root if it was found and None otherwise.
+    Prints information if the interval is invalid or if no root was found.
     """
-    def bisection_method(self, interval, max_iterations=100, epsilon=1e-3):
+    def bisection_method(self, interval, iterations=100, epsilon=1e-3):
         a, b = interval
         if self.eval(a) * self.eval(b) > 0:
-            print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints. Interval provided: {interval}.")
+            print(f"Bisection method requires an interval in which the polynomial has opposite signs in its endpoints. Interval: [{a}, {b}].")
             return None
         else:
             count = 0
-            while count < max_iterations:
+            while count < iterations:
                 mid = (a + b) / 2
                 if abs(self.eval(mid)) < epsilon:
                     return mid
@@ -113,4 +117,4 @@ class Polynomial:
                 else:
                     a = mid
                 count += 1
-            print(f"No root found for the maximum number of iterations {max_iterations} and tolerance {epsilon}.")
+            print(f"No root found. Interval: [{a}, {b}]. Iterations: {iterations}. Tolerance: {epsilon}.")
