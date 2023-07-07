@@ -62,8 +62,13 @@ class Polynomial:
     """
     @classmethod
     def from_json(cls, filename):
-    	coef_at_degree = json.load(open(f"/data/{filename}", "r"))
-    	return cls(coef_at_degree)
+        # json module converts the keys into str, so we convert them back to int.
+        str_coef_at_degree = json.load(open(f"/data/{filename}", "r"))
+        coef_at_degree = {}
+        for str_degree in str_coef_at_degree:
+            degree = int(str_degree)
+            coef_at_degree[degree] = str_coef_at_degree[str_degree]
+        return cls(coef_at_degree)
     
     """
     Uses the Newton method to find a root given an initial value.
