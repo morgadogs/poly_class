@@ -54,11 +54,11 @@ print(poly2.symbolic_derivative().coef_at_degree)
 
 print(poly1.newton_method(1/6), poly1.newton_method(3.5, max_iterations=1e5), poly1.newton_method(-90, max_iterations=1e5, epsilon=0.1))
 
-print(poly1.bisection_method((-100, 100)), poly1.bisection_method([-20,10], iterations=1e3, epsilon=0.1))
+print(poly1.bisection_method((-100, 100)), poly1.bisection_method([-20, 10], iterations=1e3, epsilon=0.1))
 
 print(poly2.newton_method(-2), poly2.newton_method(-2.5), poly2.newton_method(3), poly2.newton_method(0), poly2.newton_method(0.4382))
 
-print(poly2.bisection_method([-2,-3]), poly2.bisection_method([2.8,3]), poly2.bisection_method([-1.1,-0.9], iterations=1e6, epsilon=1e-6), poly2.bisection_method([3,4]))
+print(poly2.bisection_method([-2, -3]), poly2.bisection_method([2, 3.2]), poly2.bisection_method([-2, 0], iterations=1e6, epsilon=1e-6), poly2.bisection_method([3, 4]))
 
 # Test if the save_as_json and from_json methods work correctly.
 

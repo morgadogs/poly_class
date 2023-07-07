@@ -3,8 +3,8 @@ import pathlib
 
 class Polynomial:
     """
-    The initialization receives a dict where the keys are non-negative degrees and the
-    values are the coefficients.
+    The initialization receives a dictionary where the keys are non-negative degrees and
+    the values are the coefficients.
     """
     def __init__(self, coef_at_degree={}):
         self.coef_at_degree = coef_at_degree
@@ -78,7 +78,7 @@ class Polynomial:
         previous = value - 1
         current = value
         count = 0
-        while count < max_iterations and abs(previous - current) >= epsilon:
+        while count <= max_iterations and abs(previous - current) >= epsilon:
             if abs(self.eval(current)) < epsilon:
                 return current
             deriv_at_current = derivative_poly.eval(current)
@@ -108,7 +108,7 @@ class Polynomial:
             return None
         else:
             count = 0
-            while count < iterations:
+            while count <= iterations:
                 mid = (a + b) / 2
                 if abs(self.eval(mid)) < epsilon:
                     return mid
